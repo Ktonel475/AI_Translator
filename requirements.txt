@@ -1,0 +1,8 @@
+ollama
+GPUtil
+psutil
+easyocr
+pdf2image
+tdqm
+yaspin
+streamlit
