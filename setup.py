@@ -1,6 +1,7 @@
 import json
 import shutil
 import subprocess
+import os
 
 def get_total_ram():
     try:
@@ -45,6 +46,12 @@ def install_model(model_name):
 
 def initialize_wrapper():
     config_path = "config.json"
+    if os.path.exists(config_path):
+        confirm = input(f"{config_path} already exists. Do you want to overwrite it? (y/N): ").strip().lower()
+        if confirm != 'y':
+            print("Setup aborted.")
+            return
+        
     print("LLM Assistant Wrapper - first-time setup\n")
 
     ram = get_total_ram()
@@ -56,22 +63,35 @@ def initialize_wrapper():
         print("error: 'ollama' is not installed. Please install it from https://ollama.com and try again.")
         return
 
-    assistant_name = prompt_input("enter assistant name", default="Nova")
-    personality = prompt_input("enter personality prompt (optional)", default="You are a friendly, helpful, and clear assistant. You respond politely and concisely, making complex ideas easy to understand. You adapt your tone to be warm and approachable, and you always stay professional.")
     language = prompt_input("set default language (optional)", default="en")
 
     print("\nmodel setup:")
     model_choices = {
-        "1": ("llama3", 8000),
-        "2": ("mistral", 6000),
-        "3": ("gemma:2b", 3000),
-        "4": ("none", 0)
+        "1": ("llama3.1", 8000),
+        "2": ("mistral7b", 6000),
+        "3": ("mistral12b", 8000),
+        "4": ("mixtral8x7b", 8000),
+        "5": ("mixtral8x22b", 8000),
+        "6": ("smollm2-135m", 2048),
+        "7": ("smollm2-360m", 2048),
+        "8": ("smollm2-1.7b", 2048),
+        "9": ("qwen2.5-vl", 8192),
+        "10": ("gemma3", 4096),
+        "11": ("deepseek-r1", 2048),
+        "12": ("starcoder2-3b", 4096),
+        "13": ("starcoder2-7b", 4096),
+        "14": ("starcoder2-15b", 4096),
+        "15": ("command-r-35b", 8192),
+        "16": ("wizardlm2-7b", 8192),
+        "17": ("wizardlm2-8x22b", 8192),
+        "18": ("llava", 4096),
+        "19": ("none", 0)
     }
 
     for key, (name, _) in model_choices.items():
         print(f"{key}. {name}")
 
-    choice = input("choose a model to use or install later [1-4]: ").strip()
+    choice = input("choose a model to use or install later [1-19]: ").strip()
     if choice not in model_choices:
         print("error: invalid choice. aborting.")
         return
@@ -85,8 +105,6 @@ def initialize_wrapper():
 
     config = {
         "Model": model_name,
-        "assistant_name": assistant_name,
-        "personality_prompt": personality,
         "default_language": language,
     }
 
