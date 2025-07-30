@@ -15,15 +15,16 @@ This is a dual-mode AI translation tool that allows you to translate articles or
 ---
 
 ## 🚀 Quick Start
-
 ### 🔧 Installation
+1. Make sure Python 3.12.1 or higher is installed. You can download it from python.org.
 
-1. Clone/download the project.
-2. Run the `setup.bat` (Windows) to set up dependencies and environment.
-3. Ensure [Ollama](https://ollama.com/) or your LLM of choice is installed and configured.
-4. (Optional) Edit `config.json` to set default model and preferences.
+2. Install Ollama and download your preferred local model (e.g., mistral, llama3, etc.).
 
----
+3. Clone/download the project.
+
+4. Run the setup.bat (Windows) to install dependencies.
+
+(Optional) Edit config.json to set your default model and preferences.
 
 ## 🖥️ Streamlit Web UI
 
